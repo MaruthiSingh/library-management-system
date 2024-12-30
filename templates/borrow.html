@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+
+{% block title %}Borrow a Book{% endblock %}
+
+{% block content %}
+<h2 class="text-center text-2xl font-bold mb-6 mt-8">Borrow a Book</h2>
+<div class="flex justify-center items-center mt-4">
+    <button id="prev-btn" class="text-black text-3xl mx-4">&larr;</button>
+    <div id="book-card" 
+         class="bg-gray-200 p-6 rounded-lg shadow-lg min-w-fit transition-transform duration-300 ease-in-out" 
+         style="margin: 0.5rem 4rem;">
+        <!-- Standardized Cover Image on Top -->
+        <div class="flex items-center justify-center w-full h-[30vh] py-2 bg-gray-100 rounded-xl">
+            <img src="/static/images/fallback.jpg" 
+                 alt="Book Cover" 
+                 id="book-cover" 
+                 class="max-h-full max-w-full object-contain rounded-xl">
+        </div>
+        <!-- Book Details Below -->
+        <div class="p-4 text-center w-full">
+            <h3 class="text-xl font-bold" id="book-title"></h3>
+            <p class="text-gray-700" id="book-author"></p>
+            <p class="text-gray-700" id="book-category"></p>
+            <p class="text-gray-700" id="book-year"></p>
+            <p class="text-gray-700" id="book-description"></p>
+        </div>
+        <!-- Borrow Button -->
+        <form method="POST" class="text-center w-full">
+            {% csrf_token %}
+            <input type="hidden" name="book_id" id="book-id">
+            <button type="submit" class="bg-[#f68a56] text-white py-2 px-4 mb-4 rounded-md">Borrow</button>
+        </form>
+    </div>
+    <button id="next-btn" class="text-black text-3xl mx-4">&rarr;</button>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        let currentIndex = 0;
+        const books = JSON.parse('{{ books|escapejs }}'); // Parse books data from Django context
+        const bookCard = document.getElementById('book-card');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const fallbackImage = '/static/images/fallback.jpg';
+
+        // Update the book card with current book details
+        function updateCard(index) {
+            const book = books[index];
+            const coverImage = document.getElementById('book-cover');
+            coverImage.src = `/static/images/cover_images/${book.id}.jpg`;
+            coverImage.alt = book.title;
+            coverImage.onerror = () => {
+                coverImage.src = fallbackImage;
+            };
+
+            document.getElementById('book-title').textContent = book.title;
+            document.getElementById('book-author').innerHTML = `<strong>Author:</strong> ${book.author}`;
+            document.getElementById('book-category').innerHTML = `<strong>Category:</strong> ${book.category}`;
+            document.getElementById('book-year').innerHTML = `<strong>Publication Year:</strong> ${book.published_year}`;
+            document.getElementById('book-description').innerHTML = `<strong>Description:</strong> ${book.description} <hr>`;
+            document.getElementById('book-id').value = book.id;
+        }
+
+        // Handle navigation with smooth transition
+        function showCard(index) {
+            bookCard.style.transform = 'translateX(100%)';
+            bookCard.style.opacity = 0;
+            setTimeout(() => {
+                updateCard(index);
+                bookCard.style.transform = 'translateX(0)';
+                bookCard.style.opacity = 1;
+            }, 300);
+        }
+
+        // Attach click event listeners to navigation buttons
+        prevBtn.addEventListener('click', () => {
+            if (currentIndex > 0) {
+                currentIndex--;
+                showCard(currentIndex);
+            }
+        });
+
+        nextBtn.addEventListener('click', () => {
+            if (currentIndex < books.length - 1) {
+                currentIndex++;
+                showCard(currentIndex);
+            }
+        });
+
+        // Initialize the card display
+        if (books.length > 0) {
+            updateCard(currentIndex);
+        } else {
+            bookCard.innerHTML = "<p>No books available to borrow.</p>";
+        }
+    });
+</script>
+{% endblock %}

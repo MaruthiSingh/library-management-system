@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block title %}Return Successful{% endblock %}
+
+{% block content %}
+<h2 class="text-center text-2xl font-bold mb-6 mt-8">Return Successful</h2>
+<div class="flex justify-center items-center mt-4">
+    <div class="bg-white p-8 rounded-lg shadow-lg w-full text-center">
+        <p class="text-black text-lg">The book has been successfully returned.</p>
+        <a href="{% url 'home' %}" class="bg-blue-500 text-white py-2 px-4 rounded-md mt-4 inline-block">Go to Home</a>
+    </div>
+</div>
+{% endblock %}

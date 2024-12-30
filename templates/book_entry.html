@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}Book Entry{% endblock %}
+
+{% block content %}
+<div class="flex bg-white p-8 rounded-lg shadow-lg w-full">
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <!-- Book Entry Form -->
+        <div class="p-4 space-y-4"></div>
+        {% for field in form %}
+        <div class="flex items-center space-x-4 form-padding">
+            <label class="w-1/3 text-right pr-4" for="{{ field.id_for_label }}">{{ field.label_tag }}</label>
+            <div class="w-2/3">
+                {{ field }}
+                {% if field.errors %}
+                <div class="text-red-500 text-sm mt-1">
+                    {{ field.errors }}
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+</div>
+
+<!-- Submit Button -->
+<div class="flex justify-center">
+    <button id="submit" type="submit" class="bg-blue-500 text-white py-2 px-4 rounded-md">Submit</button>
+</div>
+</form>
+</div>
+{% endblock %}

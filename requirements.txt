@@ -1,0 +1,12 @@
+asgiref==3.8.1
+Django==5.1.4
+mysql-connector-python==9.1.0
+mysqlclient==2.2.6
+pillow==11.0.0
+pyglet==2.0.18
+setuptools==75.3.0
+sqlparse==0.5.2
+tornado==6.4.2
+tzdata==2024.2
+wheel==0.45.0
+python-dotenv==1.0.1
