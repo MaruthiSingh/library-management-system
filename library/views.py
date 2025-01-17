@@ -41,12 +41,14 @@ def user_info(request, book_id):
             
             # Generate a unique borrow code
             borrow_code = ''.join(random.choices('ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789', k=8))
+
+            date_due = datetime.now() + timedelta(days=14)  # Example: due date 14 days from today
             
             # Create a BorrowedBook record
             borrowed_book = BorrowedBook(
                 book=book, 
                 borrow_code=borrow_code, 
-                date_due="2024-01-15",  # Example due date
+                date_due=date_due,  # Example due date
                 email=email,
                 phone=phone
             )
@@ -60,6 +62,8 @@ def user_info(request, book_id):
             csv_file_path = os.path.join(settings.BASE_DIR, 'borrowed_books.csv')
             with open(csv_file_path, mode='a', newline='') as file:
                 writer = csv.writer(file)
+                if not file_exists:
+                    writer.writerow(['Title', 'Email', 'Date Borrowed', 'Borrow Code'])  # Write header if file is new
                 writer.writerow([book.title, email, datetime.now().strftime("%Y-%m-%d"), borrow_code])
             
             # Render a template instead of passing JavaScript through HttpResponse
@@ -88,14 +92,14 @@ def return_book(request):
             
             return render(request, 'return_success.html', {'book_title': book.title})
         
-        return HttpResponse("<h1 class='flex justify-center align-center text-center'>Invalid borrow code.</h1>")
+        return HttpResponse("<h1>Invalid borrow code.</h1>")
     
     return render(request, 'return.html')
 
 @login_required
 def book_entry(request):
     # Restrict access to the librarian only
-    if not request.user.is_staff or request.user.username != 'librarian':
+    if not request.user.is_staff:
         messages.error(request, 'Access denied. Only the librarian can access this page.')
         return redirect('home')  # Redirect unauthorized users to the home page
 
@@ -116,6 +120,6 @@ def book_entry(request):
 
 def search_books(request):
     query = request.GET.get('q', '')
-    books = Book.objects.filter(name__icontains=query)
-    results = [{'name': book.name} for book in books]
+    books = Book.objects.filter(title__icontains=query)
+    results = [{'name': book.title} for book in books]
     return JsonResponse({'books': results})
