@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<!-- Main Content Area: Image on Left, Text on Right -->
+<section class="flex items-center justify-center mx-4 py-16">
+    <div class="max-w-5xl mx-auto flex items-center space-x-14">
+        <!-- Image on the Left -->
+        <div class="w-1/2">
+            <img src="{% static 'images/library-image.jpg' %}" alt="Library Image" class="w-full h-4/6 rounded-lg shadow-lg">
+        </div>
+
+        <!-- Text on the Right -->
+        <div class="w-1/2">
+            <h2 class="text-3xl font-bold text-[#215992] mb-4">Welcome to the Library</h2>
+            <p class="text-lg text-gray-600 mb-6">Welcome to our Digital Library Management System! Here, you can easily
+                borrow and return books, all while exploring a wide range of categories. Whether you're looking for a novel
+                to escape into, a textbook for your studies, or a non-fiction book to learn something new, our library has
+                it all. Simply browse, borrow, and return books online, making your library experience more convenient and
+                efficient. Start exploring today!</p>
+            <div class="mt-6 space-x-4">
+                <a href="{% url 'borrow' %}" class="bg-[#f68a56] text-white px-6 py-3 rounded-lg hover:bg-[#167abf] transition-colors">Borrow a Book</a>
+                <a href="{% url 'return' %}" class="bg-[#167abf] text-white px-6 py-3 rounded-lg hover:bg-[#215992] transition-colors">Return a Book</a>
+            </div>
+         </div>
+    </div>
+</section>
+<div id="infoDiv" class="fixed z-10 bottom-6 left-4 bg-[#167abf] p-4 rounded-lg shadow-lg">
+    <p class="text-base text-white">
+        <button class="text-black mr-3 cursor-pointer" onclick="document.getElementById('infoDiv').style.display='none'">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+        Computer Science Project By Maruthi, Asad, Sreeshant of 
+        <a href="https://rainbowschoolnellore.com/" class="text-[#f68a56] underline" target="_blank">Rainbow</a> 12th Grade
+    </p>
+</div>
+{% endblock %}

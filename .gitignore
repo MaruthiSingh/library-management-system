@@ -1,0 +1,23 @@
+# Python
+*.py[cod]
+__pycache__/
+*.so
+
+# Environment
+.env
+*.env
+*.venv
+venv/
+ENV/
+
+# Django
+*.log
+db.sqlite3
+
+# Node.js
+node_modules/
+
+# OS Files
+.DS_Store
+Thumbs.db
+.vercel

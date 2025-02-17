@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}Return a Book{% endblock %}
+
+{% block content %}
+<div class="min-h-[70vh] flex flex-col justify-center items-center">
+    <h2 class="text-center text-2xl font-bold mb-6 mt-8">Return a Book</h2>
+    <div class="flex align-middle justify-center bg-white p-8 rounded-lg my-6 shadow-lg w-fit">
+        <form method="POST" enctype="multipart/form-data" class="w-full">
+        {% csrf_token %}
+        <div class="p-4 space-y-4">
+            <div class="flex items-center space-x-2 form-padding">
+                <label class="w-full text-right pr-4" for="borrow_code">Enter Borrow Code:</label>
+                <input type="text" name="borrow_code" id="borrow_code" required 
+                class="p-4 rounded-md border-2 w-full" 
+                placeholder="Enter Borrow Code">
+            </div>
+        </div>
+        <div class="flex justify-center">
+            <button type="submit" class="bg-[#f68a56] text-white py-2 px-4 mb-4 rounded-md">Return</button>
+        </div>
+    </form>
+</div>
+</div>
+{% endblock %}

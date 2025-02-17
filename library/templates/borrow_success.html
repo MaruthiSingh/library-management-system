@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Borrow Success</title>
+    <style>
+        .centered {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+            text-align: center;
+            background-color: #ffffff; /* White background */
+            color: #215992; /* Deep Blue text */
+        }
+        .copy-button {
+            margin-top: 10px;
+            padding: 5px 10px;
+            cursor: pointer;
+            background-color: #f68a56; /* Warm Orange button */
+            color: #ffffff; /* White text */
+            border: none;
+            border-radius: 5px;
+        }
+        .copy-button:hover {
+            background-color: #167abf; /* Bright Blue on hover */
+        }
+    </style>
+</head>
+<body>
+    <div class="centered">
+        <h1 class="text-black text-xl">Book borrowed successfully!</h1>
+        <p>Thank you for borrowing {{ book_title }}. Your borrow code is:</p>
+        <div>
+            <span id="borrowCode">{{ borrow_code }}</span>
+            <button class="copy-button" onclick="copyToClipboard()">Copy</button>
+        </div>
+    </div>
+    <script>
+        function copyToClipboard() {
+            const borrowCode = document.getElementById('borrowCode').innerText;
+            navigator.clipboard.writeText(borrowCode).then(() => {
+                alert('Borrow code copied to clipboard!');
+            }).catch(err => {
+                console.error('Failed to copy text: ', err);
+            });
+        }
+    </script>
+</body>
+</html>
