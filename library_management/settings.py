@@ -31,7 +31,7 @@ SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
 # Allowed hosts configuration
-ALLOWED_HOSTS = ['your-vercel-domain.vercel.app', 'localhost']
+ALLOWED_HOSTS = ['library-management-v1.vercel.app', 'localhost']
 
 
 # Application definition
