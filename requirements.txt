@@ -1,5 +1,7 @@
 asgiref==3.8.1
 Django==5.1.4
+mysql-connector-python==8.0.28
+mysqlclient==2.1.0
 pillow==11.0.0
 pyglet==2.0.18
 setuptools==75.3.0
