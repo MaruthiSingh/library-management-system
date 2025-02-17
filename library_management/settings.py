@@ -31,7 +31,7 @@ SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
 # Allowed hosts configuration
-ALLOWED_HOSTS = ['library-management-v1.vercel.app',"library-management-system-sl5l.onrender.com", 'localhost']
+ALLOWED_HOSTS = ['library-management-system-six-sable.vercel.app',"library-management-system-sl5l.onrender.com", 'localhost']
 
 
 # Application definition
