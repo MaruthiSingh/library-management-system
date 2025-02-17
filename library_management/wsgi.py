@@ -15,4 +15,5 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'library_management.settings')
 
 application = get_wsgi_application()
 
+# Alias for Vercel
 app = application
